@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+import PolishContainer from './Containers/PolishContainer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+class App extends React.Component {
+
+  // state ={
+  //   polishes: []
+  // }
+
+  // componentDidMount(){
+  //   fetch('http://localhost:3005/api/v1/polishes')
+  //   .then(res => res.json())
+  //   .then(allPolishes => {
+  //     this.setState({
+  //       polishes: allPolishes
+  //     })
+  //   })
+  // }
+  render(){
+    return( <div>
+    <h1> Polished </h1>
+    <PolishContainer />
     </div>
-  );
+ )}
 }
 
 export default App;
