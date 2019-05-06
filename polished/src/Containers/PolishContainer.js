@@ -25,14 +25,10 @@ class PolishContainer extends React.Component {
     //          })
     //     }
     // }
-
-
-
-
     render(){
         return (<div>
-        {/* <FavoritesContainer /> */}
-        <PolishFilter handleSeasonCategoryChange={this.props.handleSeasonChange} />
+        <PolishFilter handleSeasonCategoryChange={this.props.handleSeasonChange}
+        handleColorCategoryChange={this.props.handleColorChange} />
         {/* <NewPolishForm /> */}
              {this.props.polishes.map(polish => <div><Polish 
              name={polish.name}
@@ -48,5 +44,3 @@ class PolishContainer extends React.Component {
 
 export default PolishContainer
 
-//onClick the selected nail polish should be added to the favorites array 
-//on hover, the favorites tab should render to the screen 

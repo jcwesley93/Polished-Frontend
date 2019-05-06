@@ -1,6 +1,9 @@
 import React from 'react';
+import {Route, Switch, Link} from 'react-router-dom'
+
 import PolishContainer from './Containers/PolishContainer'
 import FavoritesContainer from './Containers/FavoritesContainter'
+import NewPolishForm from './Components/NewPolishForm';
 
 
 class App extends React.Component {
@@ -55,25 +58,69 @@ class App extends React.Component {
         }
     }
 
+    //filters initally but doesnt update filter
+    //all doesnt work after changing it 
+  handleColorCategoryChange = (event) => {
+    let filteredPolishes = [...this.state.filteredPolishes]
+    if(event.target.value === 'All'){
+      this.setState({
+        filteredPolishes: [...this.state.filteredPolishes]
+      })
+    }else if (event.target.value === 'Greens'){
+      let filteredPolishesArray = filteredPolishes.filter(polish => 
+        polish.color_category === 'Greens')
+      this.setState({
+        filteredPolishes: filteredPolishesArray
+      })
+    }
+    
+}
+
   handleFavorited = (selectedPolish) => {
     this.setState({
       favoritePolishes: [...this.state.favoritePolishes, selectedPolish]
     })
-    console.log(this.state.favoritePolishes)
   }
 
   handleUnfavorited =(selectedPolish) => {
-    console.log(selectedPolish)
+    //take the current state of Favorite Polishes 
+    //filter through, and select all of those that are not the selected polish 
+    let newFavorite = this.state.favoritePolishes.filter(polish => {
+      return polish !== selectedPolish
+    })
+    this.setState({
+      favoritePolishes: newFavorite
+    })
+  }
+
+  handleFormSubmit = (event, newPolish) => {
+    event.preventDefault()
+    this.setState({
+      filteredPolishes: [...this.state.polishes, newPolish]
+    })
   }
 
   render(){
     return( <div>
-    <h1> Polished </h1> 
-    <FavoritesContainer polishes={this.state.favoritePolishes}
-    handleUnfavorited={this.handleUnfavorited}/>
+    <Switch>
+    {/* <h1> Polished </h1> */}
+    <Route path="/home" render={(props)=> {
+      return(<div>
+        <NewPolishForm handleFormSubmit={this.handleFormSubmit} />
+      <Link to={'/favorites'}>FAVORITES </Link>
     <PolishContainer polishes={this.state.filteredPolishes} 
     handleSeasonChange={this.handleSeasonChange}
+    handleColorChange={this.handleColorCategoryChange}
     handleFavorited={this.handleFavorited}/>
+      </div>)
+    }} />
+    <Route path="/favorites" render={(props) => {
+      return(
+        <FavoritesContainer polishes={this.state.favoritePolishes}
+    handleUnfavorited={this.handleUnfavorited}/>
+      )
+    }} />
+    </Switch>
     </div>
  )}
 }

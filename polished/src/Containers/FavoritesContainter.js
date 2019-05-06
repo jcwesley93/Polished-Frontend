@@ -4,6 +4,7 @@ import Polish from '../Components/Polish'
 class FavoritesContainer extends React.Component{
     render(){
         return(<div>
+            <h1>Favorites</h1>
             {this.props.polishes.map(polish => <div> 
             <Polish name={polish.name} 
             img={polish.img} 
