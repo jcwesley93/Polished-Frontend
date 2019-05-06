@@ -1,71 +1,52 @@
 import React from 'react'
 import Polish from '../Components/Polish.js'
-import PolishFilter from '../Components/PolishFilter'
-import { filter } from 'rsvp';
+import PolishFilter from '../Components/PolishFilter.js'
+import NewPolishForm from '../Components/NewPolishForm.js'
+import FavoritesContainer from './FavoritesContainter.js'
+
+
+
 
 class PolishContainer extends React.Component {
 
-//take the state of all polishes and filter through them  based on what the selected value is. 
-   state ={
-    polishes: [],
-    filteredPolishes: []
-    }
 
-    componentDidMount(){
-        fetch('http://localhost:3005/api/v1/polishes')
-        .then(res => res.json())
-        .then(allPolishes => {
-          this.setState({
-            polishes: allPolishes, 
-            filteredPolishes: allPolishes
-          })
-        })
-      }
+    // The second filter does not work on already filtered things. 
+    // handleColorCategoryChange = (event) => {
+    //     let filteredPolishes = [...this.state.filteredPolishes]
+    //     if(event.target.value === 'All'){
+    //         this.setState({
+    //             filteredPolishes: [...this.state.filteredPolishes]
+    //         })
+    //     } else if (event.target.value === 'Greens'){
+    //         let filteredPolishesArray = filteredPolishes.filter(polish =>
+    //             polish.color_category === 'Greens')
+    //         this.setState({
+    //             filteredPolishes: filteredPolishesArray
+    //          })
+    //     }
+    // }
 
-    //can this be a switch statement?  
-    handleSeasonChange = (event) => {
-    let filteredPolishes = [...this.state.polishes]
-    if(event.target.value === 'all'){
-        this.setState({
-            filteredPolishes: [...this.state.polishes]
-        })
-    } else if (event.target.value === 'summer'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'summer')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    } else if (event.target.value === 'fall'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'fall')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    } else if (event.target.value === 'winter'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'winter')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    }else if(event.target.value === 'spring'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'spring')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-        }
-    }
+
+
 
     render(){
         return (<div>
-        <PolishFilter handleCategoryChange={this.handleSeasonChange} />
-             {this.state.filteredPolishes.map(polish => <div><Polish 
+        {/* <FavoritesContainer /> */}
+        <PolishFilter handleSeasonCategoryChange={this.props.handleSeasonChange} />
+        {/* <NewPolishForm /> */}
+             {this.props.polishes.map(polish => <div><Polish 
              name={polish.name}
              img={polish.img}
-             description={polish.description} /></div> )}
+             description={polish.description}
+             handleFavorited={this.props.handleFavorited} />
+             <button onClick={() => this.props.handleFavorited(polish)} name="favorite">Favorite</button>
+             </div> )}
         </div>
         )
     }
 }
 
 export default PolishContainer
+
+//onClick the selected nail polish should be added to the favorites array 
+//on hover, the favorites tab should render to the screen 

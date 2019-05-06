@@ -3,7 +3,7 @@ import React from 'react'
 const PolishFilter = (props) => {
     return( <div>
         <div>
-        <select onChange= {props.handleCategoryChange}>
+        <select onChange= {props.handleSeasonCategoryChange}>
             <option value= "all"> All </option>
             <option value= "summer"> Summer </option>
             <option value= "fall"> Fall </option>
@@ -12,14 +12,15 @@ const PolishFilter = (props) => {
         </select>
         </div>
         
-        {/* <div>
-        <select>
+        <div>
+        <select onChange={props.handleColorCategoryChange}>
+            <option value="All">All</option> 
             <option value= "Greens"> Green </option>
             <option value= "Yellows"> Yellow </option>
             <option value= "Metallics & Glitters"> Metallic/Glitter </option>
             <option value= "Grays"> Gray </option>
         </select>
-        </div> */}
+        </div>
 
 
     </div>
