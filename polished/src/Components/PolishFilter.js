@@ -12,7 +12,7 @@ const PolishFilter = (props) => {
         </select>
         </div>
         
-        <div>
+        {/* <div>
         <select onChange={props.handleColorCategoryChange}>
             <option value="All">All</option> 
             <option value= "Greens"> Green </option>
@@ -20,7 +20,7 @@ const PolishFilter = (props) => {
             <option value= "Metallics & Glitters"> Metallic/Glitter </option>
             <option value= "Grays"> Gray </option>
         </select>
-        </div>
+        </div> */}
 
 
     </div>

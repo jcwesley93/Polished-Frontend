@@ -1,4 +1,6 @@
 import React from 'react'
+import {SubTitle, Input, Card, Button, Level, Control} from "reactbulma"
+import {Columns} from 'react-bulma-components'
 
 class NewPolishForm extends React.Component {
 
@@ -26,26 +28,37 @@ class NewPolishForm extends React.Component {
     //onSubmit take in the whole state (an object of a new nail polish)
     render(){
         return(<div>
-            <h5>Add A New Polish</h5>
+        <Columns>
+        <Columns.Column size="one-third">
+            <div></div>
+        </Columns.Column>
+            <Columns.Column size="one-third">
+            <div><Card>
+            <Card.Header>
+                <Card.Header.Title centered> Add A New Polish!</Card.Header.Title>
+            </Card.Header>
+            <Card.Content>
             <form onSubmit={(event) => this.props.handleFormSubmit(event, this.state)}>
                 <label>Name: </label> 
-                <input onChange={this.handleInputChange} type="text" name="name"/>
+                <Input danger placeholder="Name" onChange={this.handleInputChange} type="text" name="name"/>
                 <br/>
                 <label>Brand: </label> 
-                <input onChange={this.handleInputChange} type="text" name="brand"/>
+                <Input danger placeholder="Brand" onChange={this.handleInputChange} type="text" name="brand"/>
                 <br/>
                 <label>Description: </label>
-                <input onChange={this.handleInputChange} type="text" name="description"/>
+                <Input danger placeholder="Description" onChange={this.handleInputChange} type="text" name="description"/>
                 <br/>
                 <label>Price ($USD): </label>
-                <input  onChange={this.handleInputChange} type="number" name="price" />
+                <Input danger placeholder="0.00" onChange={this.handleInputChange} type="number" name="price" />
                 <br/>
                 <label>Image: </label>
-                <input  onChange={this.handleInputChange} type="text" name="img" />
+                <Input danger placeholder="Image URL"  onChange={this.handleInputChange} type="text" name="img" />
                 <br/>
                 <label>Link: </label>
-                <input  onChange={this.handleInputChange} type="text" name="link" />
+                <Input danger placeholder="Link URL"   onChange={this.handleInputChange} type="text" name="link" />
                 <br/>
+                <br/>
+                <Level>
                 <label>Color Category: </label> 
                 <select onChange={this.handleInputChange} name="color_category">
                     <option value="Sheers">Sheer</option>
@@ -68,11 +81,14 @@ class NewPolishForm extends React.Component {
                     <option value="winter">Winter</option>
                     <option value="spring">Spring</option>
                 </select>
-                <br/>
-                <input type="submit" value="Submit"/>
-                <br/>
+                </Level>
+                <Button danger type="submit" value="Submit">Add New Polish</Button>
                 <br/>
             </form>
+            </Card.Content>
+            </Card></div>
+            </Columns.Column>
+        </Columns>
         </div>
         )
     }

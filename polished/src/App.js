@@ -1,9 +1,12 @@
 import React from 'react';
-import {Route, Switch, Link} from 'react-router-dom'
+import {Route, Switch, Link, withRouter} from 'react-router-dom'
+
+import {Title, Nav, Button, Tabs} from 'reactbulma'
 
 import PolishContainer from './Containers/PolishContainer'
 import FavoritesContainer from './Containers/FavoritesContainter'
 import NewPolishForm from './Components/NewPolishForm';
+import PolishPicker from "./Components/PolishPicker"
 
 
 class App extends React.Component {
@@ -31,48 +34,30 @@ class App extends React.Component {
         this.setState({
             filteredPolishes: [...this.state.polishes]
         })
-    } else if (event.target.value === 'summer'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'summer')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    } else if (event.target.value === 'fall'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'fall')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    } else if (event.target.value === 'winter'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'winter')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-    }else if(event.target.value === 'spring'){
-        let filteredPolishesArray = filteredPolishes.filter(polish =>
-            polish.season === 'spring')
-        this.setState({
-            filteredPolishes: filteredPolishesArray
-         })
-        }
-    }
-
-    //filters initally but doesnt update filter
-    //all doesnt work after changing it 
-  handleColorCategoryChange = (event) => {
-    let filteredPolishes = [...this.state.filteredPolishes]
-    if(event.target.value === 'All'){
-      this.setState({
-        filteredPolishes: [...this.state.filteredPolishes]
-      })
-    }else if (event.target.value === 'Greens'){
+    } else {
       let filteredPolishesArray = filteredPolishes.filter(polish => 
-        polish.color_category === 'Greens')
-      this.setState({
-        filteredPolishes: filteredPolishesArray
-      })
+        event.target.value === polish.season)
+        this.setState({
+          filteredPolishes: filteredPolishesArray
+        })
     }
+ 
+
+  //   //filters initally but doesnt update filter
+  //   //all doesnt work after changing it 
+  // handleColorCategoryChange = (event) => {
+  //   let filteredPolishes = [...this.state.filteredPolishes]
+  //   if(event.target.value === 'All'){
+  //     this.setState({
+  //       filteredPolishes: [...this.state.filteredPolishes]
+  //     })
+  //   }else if (event.target.value === 'Greens'){
+  //     let filteredPolishesArray = filteredPolishes.filter(polish => 
+  //       polish.color_category === 'Greens')
+  //     this.setState({
+  //       filteredPolishes: filteredPolishesArray
+  //     })
+  //   }
     
 }
 
@@ -98,31 +83,57 @@ class App extends React.Component {
     this.setState({
       filteredPolishes: [...this.state.polishes, newPolish]
     })
+    this.props.history.push('/home')
   }
 
   render(){
     return( <div>
+    <Title>Polished</Title>
+    <Tabs style={{margin: 10}}>
+    <ul>
+      <li>
+       <Link to={'/home'}> Home </Link>
+      </li>
+      <li>
+       <Link to={'/favorites'}> Favorites </Link>
+      </li>
+      <li>
+       <Link to={'/new-polish'}> Add New Polish </Link>
+      </li>
+      <li>
+       <Link to={'/polish-picker'}> Polish Picker </Link>
+      </li>
+    </ul>
+    </Tabs>
+
     <Switch>
-    {/* <h1> Polished </h1> */}
-    <Route path="/home" render={(props)=> {
-      return(<div>
-        <NewPolishForm handleFormSubmit={this.handleFormSubmit} />
-      <Link to={'/favorites'}>FAVORITES </Link>
-    <PolishContainer polishes={this.state.filteredPolishes} 
-    handleSeasonChange={this.handleSeasonChange}
-    handleColorChange={this.handleColorCategoryChange}
-    handleFavorited={this.handleFavorited}/>
-      </div>)
-    }} />
-    <Route path="/favorites" render={(props) => {
-      return(
-        <FavoritesContainer polishes={this.state.favoritePolishes}
-    handleUnfavorited={this.handleUnfavorited}/>
-      )
-    }} />
+      <Route path="/home" render={(props)=> {
+        return(<div>
+          <PolishContainer polishes={this.state.filteredPolishes} 
+          handleSeasonChange={this.handleSeasonChange}
+          handleColorChange={this.handleColorCategoryChange}
+          handleFavorited={this.handleFavorited}/>
+        </div>)
+      }} />
+      <Route path="/favorites" render={(props) => {
+        return(
+          <FavoritesContainer polishes={this.state.favoritePolishes}
+      handleUnfavorited={this.handleUnfavorited}/>
+        )
+      }} />
+      <Route path="/new-polish" render={(props) => {
+        return(
+          <NewPolishForm handleFormSubmit={this.handleFormSubmit} />
+        )
+      }} />
+      <Route path="/polish-picker" render={(props)=> {
+        return(
+          <PolishPicker polishes={this.state.polishes}/>
+        )
+      }} />
     </Switch>
     </div>
  )}
 }
 
-export default App;
+export default withRouter(App);

@@ -1,15 +1,23 @@
 import React from 'react'
+import {Card, Button} from 'reactbulma'
 
 const Polish = (props) => {
     return ( <div>
-        <h3>{props.name}</h3>
-        <h5>{props.brand}</h5>
-        <img src={props.img} alt={props.name} />
-        <div>
-            <p> {props.description} </p>
-            <p> {props.color_category} </p>
-            <p> {props.season}</p>
-        </div>
+        <Card>
+            <Card.Image src={props.img} alt={props.name} />
+            <Card.Header>
+                <Card.Header.Title>{props.name} | {props.brand}</Card.Header.Title>
+            </Card.Header>    
+                <Card.Content>
+                <div>
+                    <p> {props.description} </p>
+                    <p> {props.color_category} </p>
+                    <p> {props.season}</p>
+                    <br/>
+                    <Button danger onClick={props.method}>{props.buttonName}</Button>
+                </div>
+                </Card.Content>
+        </Card>
 
 
     </div>

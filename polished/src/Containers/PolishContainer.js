@@ -4,39 +4,38 @@ import PolishFilter from '../Components/PolishFilter.js'
 import NewPolishForm from '../Components/NewPolishForm.js'
 import FavoritesContainer from './FavoritesContainter.js'
 
-
+import {Button, SubTitle, Level}from 'reactbulma'
+import { Columns } from 'react-bulma-components'
 
 
 class PolishContainer extends React.Component {
 
-
-    // The second filter does not work on already filtered things. 
-    // handleColorCategoryChange = (event) => {
-    //     let filteredPolishes = [...this.state.filteredPolishes]
-    //     if(event.target.value === 'All'){
-    //         this.setState({
-    //             filteredPolishes: [...this.state.filteredPolishes]
-    //         })
-    //     } else if (event.target.value === 'Greens'){
-    //         let filteredPolishesArray = filteredPolishes.filter(polish =>
-    //             polish.color_category === 'Greens')
-    //         this.setState({
-    //             filteredPolishes: filteredPolishesArray
-    //          })
-    //     }
-    // }
     render(){
         return (<div>
-        <PolishFilter handleSeasonCategoryChange={this.props.handleSeasonChange}
-        handleColorCategoryChange={this.props.handleColorChange} />
-        {/* <NewPolishForm /> */}
-             {this.props.polishes.map(polish => <div><Polish 
+        <Level>
+            <Level.Left>
+                <Level.Item>
+                 <SubTitle>Filter By Season</SubTitle>
+                </Level.Item>
+                <Level.Item>
+                <PolishFilter handleSeasonCategoryChange={this.props.handleSeasonChange}
+                handleColorCategoryChange={this.props.handleColorChange} />
+                </Level.Item>
+            </Level.Left>
+        </Level>
+
+        <Columns>
+             {this.props.polishes.map(polish =><Columns.Column size="one-quarter"> <div><Polish 
              name={polish.name}
+             brand={polish.brand}
              img={polish.img}
              description={polish.description}
-             handleFavorited={this.props.handleFavorited} />
-             <button onClick={() => this.props.handleFavorited(polish)} name="favorite">Favorite</button>
-             </div> )}
+             handleFavorited={this.props.handleFavorited} 
+             method={() => this.props.handleFavorited(polish)}
+             buttonName="Favorite"/>
+             </div>
+             </Columns.Column> )}
+        </Columns>
         </div>
         )
     }
