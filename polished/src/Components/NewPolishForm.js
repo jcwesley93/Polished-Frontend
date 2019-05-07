@@ -1,5 +1,5 @@
 import React from 'react'
-import {SubTitle, Input, Card, Button, Level, Control} from "reactbulma"
+import {Input, Card, Button, Level} from "reactbulma"
 import {Columns} from 'react-bulma-components'
 
 class NewPolishForm extends React.Component {
@@ -17,12 +17,9 @@ class NewPolishForm extends React.Component {
 
     //onChange update the specific states
     handleInputChange = (event) =>{
-        console.log(event.target.name)
-        console.log(event.target.value)
         this.setState({
             [event.target.name]: event.target.value
         })
-        console.log(this.state)
     }
 
     //onSubmit take in the whole state (an object of a new nail polish)

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Switch, Link, withRouter} from 'react-router-dom'
 
-import {Title, Nav, Button, Tabs} from 'reactbulma'
+import {Title, Tabs} from 'reactbulma'
 
 import PolishContainer from './Containers/PolishContainer'
 import FavoritesContainer from './Containers/FavoritesContainter'
@@ -62,9 +62,11 @@ class App extends React.Component {
 }
 
   handleFavorited = (selectedPolish) => {
-    this.setState({
+    if(!this.state.favoritePolishes.includes(selectedPolish)){
+      this.setState({
       favoritePolishes: [...this.state.favoritePolishes, selectedPolish]
     })
+    } 
   }
 
   handleUnfavorited =(selectedPolish) => {
